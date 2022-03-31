@@ -1,7 +1,7 @@
 Package: RITAN
 Type: Package
 Title: Rapid Integration of Term Annotation and Network resources
-Version: 1.19.1
+Version: 1.19.2
 Author: Michael Zimmermann
 Maintainer: Michael Zimmermann <mtzimmermann@mcw.edu>
 Description: Tools for comprehensive gene set enrichment and extraction of
@@ -38,7 +38,6 @@ Collate:
     'lib_enrichment.R'
     'lib_network.R'
     'interconnectivity_functions.R'
-    'zzz.R'
 RoxygenNote: 6.0.1
 Suggests:
     rmarkdown
@@ -46,4 +45,3 @@ License: file LICENSE
 biocViews: QualityControl, Network, NetworkEnrichment,
     NetworkInference, GeneSetEnrichment, FunctionalGenomics
 NeedsCompilation: no
-PackageStatus: Deprecated
