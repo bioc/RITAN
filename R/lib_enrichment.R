@@ -81,7 +81,9 @@ resources.default = c("GO", "ReactomePathways", "KEGG_filtered_canonical_pathway
 #' # Reading GMT files
 #' geneset <- readGMT( 'my_file.gmt' )
 #' 
-#' # GMT files are available from multiple sources including http://software.broadinstitute.org/gsea/msigdb/
+#' # Additional GMT files are available from multiple sources.
+#' #   We recommend:
+#' #   http://software.broadinstitute.org/gsea/msigdb/
 #' }
 #' 
 readGMT <- function( f = NA ){
@@ -321,18 +323,27 @@ show_active_genesets_hist <- function(nbins = 50, ...){
 #' 
 #' The character array returned is, by default, all human protein coding gene symbols. This variable defines the "universe of possible genes" for use in enrichment. Users should load a different "universe" or filter this one down to the most appropriate setting for their current study. For example, if running RNA-Seq, genes are in the universie if they are detected in any sample.
 #' 
-#' @param file file name of a table containing gene symbols
-#' @param col_name column name within "file" that contains symbols
+#' @import EnsDb.Hsapiens.v86 GenomicFeatures ensembldb AnnotationFilter
 #' 
-#' @return A unique list of gene symbols from the current protein coding set at the EBI
+#' @return A unique list of gene symbols for protein coding genes according to EnsDb.Hsapiens.v86
 #' 
-load_all_protein_coding_symbols <- function(
-      file = 'ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/tsv/locus_groups/protein-coding_gene.txt',
-      col_name = 'symbol'
-      ){
-  s <- read.table( file, sep="\t", header=TRUE, as.is=TRUE, quote="", comment.char = '' )
-  u <- unique( s[, col_name ])
+load_all_protein_coding_symbols <- function(){
+
+  ## formerly, this function read the EBI file, causing issues with timeouts.
+  ## moved to using BioC package references
+  # file = 'ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/tsv/locus_groups/protein-coding_gene.txt',
+  # col_name = 'symbol'
+  # s <- read.table( file, sep="\t", header=TRUE, as.is=TRUE, quote="", comment.char = '' )
+  # u <- unique( s[, col_name ])
+  
+  tx. <- GenomicFeatures::transcripts(EnsDb.Hsapiens.v86,
+           columns = c(ensembldb::listColumns(EnsDb.Hsapiens.v86 , "tx"), "gene_name"),
+           filter = AnnotationFilter::TxBiotypeFilter("protein_coding"),
+           return.type = "DataFrame")
+  u <- sort(unique(tx.$gene_name))
+  
   return(u)
+  
 }
 
 ### --------------------------------------------------------------- -
@@ -724,6 +735,7 @@ term_enrichment <- function( geneset, resources = resources.default,
 #'
 #' @return Returns a term-by-study matrix of enrichment values (value determined by "display_type")
 #' @import RITANdata
+#' @importFrom methods is
 #' @export
 #'
 #' @examples
@@ -880,7 +892,9 @@ plot.term_enrichment <- function( x = NA, min_q = 0.05, max_terms = 25, extend_m
 #'
 #' @return silent return, unless return_ggplot_object==TRUE. Then, the ggplot object for the plot is returned.
 #' @export
-#' @import ggplot2 reshape2 grid gridExtra RColorBrewer 
+#' @import ggplot2 reshape2 grid gridExtra RColorBrewer
+#' @importFrom methods is
+#' 
 #' @examples
 #' ## Create list of gene sets to evaluate.
 #' ##   This example is from a vaccine study where we pre-generated differentially expressed genes.
