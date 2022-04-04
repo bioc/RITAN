@@ -1,9 +1,9 @@
 ### TO IMPLEMENT
-## - distributional test between random netowrks and a bootstrapped estimate from your data better than current interconnectivity test? (would just be a more confident estimate of observation)
+## - distributional test between random networks and a bootstrapped estimate from your data better than current interconnectivity test? (would just be a more confident estimate of observation)
 
-if(getRversion() >= "2.15.1"){
-  utils::globalVariables( names=c('active_genesets', 'all_symbols', 'geneset_list'), package='RITAN')
-}
+# if(getRversion() >= "2.15.1"){
+#   utils::globalVariables( names=c('active_genesets', 'all_symbols', 'geneset_list'), package='RITAN')
+# }
 resources.default = c("GO", "ReactomePathways", "KEGG_filtered_canonical_pathways", "MSigDB_Hallmarks")
 
 ### --------------------------------------------------------------- -
@@ -875,6 +875,7 @@ plot.term_enrichment <- function( x = NA, min_q = 0.05, max_terms = 25, extend_m
 #' @param wrap_y_labels Number of characters to wrap row labels
 #' @param cap Clip numeric values to this maximum threshold
 #' @param return_ggplot_object logical flag (default FALSE) that if TRUE, the ggplot object for the plot is returned
+#' @param trim_resource_names [TRUE] remove any text in rownames preceeding a period characte. This convension is usually used in RITAN to prepend the resource name to the term name, which may not be needed in plotting.
 #' @param ... further areguments are not used at this time. If the user wants to modify the plot, use return_ggplot_object = TRUE.
 #'
 #' @return silent return, unless return_ggplot_object==TRUE. Then, the ggplot object for the plot is returned.
@@ -905,7 +906,8 @@ plot.term_enrichment_by_subset <- function( x, show_values = TRUE,
                                             label_size_y = 9, wrap_y_labels = 20,
                                             grid_line_color = 'white', mid = 0, cap = NA,
                                             annotation_palates = c('Reds','Greens','Purples','Greys','BuPu','RdPu','BrBG','PiYG','Spectral'),
-                                            annotation_legend_x = -0.3, ... ){
+                                            annotation_legend_x = -0.3, 
+                                            trim_resource_names = TRUE, ... ){
 
   ## Check inputs
   if ( all(is.na(x)|is.null(x)) || is.null(dim(x)) || (dim(x)[1] < 1) ){
@@ -935,10 +937,12 @@ plot.term_enrichment_by_subset <- function( x, show_values = TRUE,
   colnames(mat) <- colnames(x)[ 3:dim(x)[2] ]
 
   ## trim off the "resource" from term names for plotting
-  rownames(mat) <- as.character(sapply(
-    getElement( x, 'name' ), function(x){
-      sub( '.+[.]', '', x )
-    }))
+  if (trim_resource_names){
+    rownames(mat) <- as.character(sapply(
+      getElement( x, 'name' ), function(x){
+        sub( '.+[.]', '', x )
+      }))
+  }
 
   ## basic 1-level name wrapping for plotting
   if ( !all(is.na(wrap_y_labels)) && is.numeric(wrap_y_labels) ){
