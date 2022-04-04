@@ -4,8 +4,13 @@
 \alias{check_net_input}
 \title{check_net_input}
 \usage{
-check_net_input(set, ref, check4similar = FALSE, entity1name = "p1",
-  entity2name = "p1")
+check_net_input(
+  set,
+  ref,
+  check4similar = FALSE,
+  entity1name = "p1",
+  entity2name = "p1"
+)
 }
 \arguments{
 \item{set}{An input list of genes to check against a reference.}

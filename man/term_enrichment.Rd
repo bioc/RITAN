@@ -4,9 +4,15 @@
 \alias{term_enrichment}
 \title{term_enrichment}
 \usage{
-term_enrichment(geneset, resources = resources.default,
-  report_resources_separately = FALSE, verbose = TRUE, all_symbols = NA,
-  filter_to_intersection = FALSE, ...)
+term_enrichment(
+  geneset,
+  resources = resources.default,
+  report_resources_separately = FALSE,
+  verbose = TRUE,
+  all_symbols = NA,
+  filter_to_intersection = FALSE,
+  ...
+)
 }
 \arguments{
 \item{geneset}{vector of gene symbols to be evaluated}

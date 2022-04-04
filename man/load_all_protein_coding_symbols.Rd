@@ -4,17 +4,10 @@
 \alias{load_all_protein_coding_symbols}
 \title{load_all_protein_coding_symbols}
 \usage{
-
-  load_all_protein_coding_symbols(file = "ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/tsv/locus_groups/protein-coding_gene.txt",
-  col_name = "symbol")
-}
-\arguments{
-\item{file}{file name of a table containing gene symbols}
-
-\item{col_name}{column name within "file" that contains symbols}
+load_all_protein_coding_symbols()
 }
 \value{
-A unique list of gene symbols from the current protein coding set at the EBI
+A unique list of gene symbols for protein coding genes according to EnsDb.Hsapiens.v86
 }
 \description{
 The character array returned is, by default, all human protein coding gene symbols. This variable defines the "universe of possible genes" for use in enrichment. Users should load a different "universe" or filter this one down to the most appropriate setting for their current study. For example, if running RNA-Seq, genes are in the universie if they are detected in any sample.

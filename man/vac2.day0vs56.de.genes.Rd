@@ -4,7 +4,9 @@
 \name{vac2.day0vs56.de.genes}
 \alias{vac2.day0vs56.de.genes}
 \title{This dataset is included as an example in the package:}
-\format{An object of class \code{character} of length 660.}
+\format{
+An object of class \code{character} of length 660.
+}
 \usage{
 vac2.day0vs56.de.genes
 }

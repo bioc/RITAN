@@ -4,11 +4,20 @@
 \alias{network_overlap}
 \title{network_overlap}
 \usage{
-network_overlap(gene_list = NA, resources = c("PID", "TFe", "dPPI", "CCSB",
-  "STRING"), minStringScore = 700, minHumanNetScore = 0.4, minScore = 0,
-  verbose = TRUE, dedup = TRUE, directed_net = FALSE,
-  include_neighbors = FALSE, STRING_cache_directory = NA,
-  STRING_species = 9606, STRING_version = "10")
+network_overlap(
+  gene_list = NA,
+  resources = c("PID", "TFe", "dPPI", "CCSB", "STRING"),
+  minStringScore = 700,
+  minHumanNetScore = 0.4,
+  minScore = 0,
+  verbose = TRUE,
+  dedup = TRUE,
+  directed_net = FALSE,
+  include_neighbors = FALSE,
+  STRING_cache_directory = NA,
+  STRING_species = 9606,
+  STRING_version = "10"
+)
 }
 \arguments{
 \item{gene_list}{A list of genes to use. The function will identify edges across resources for or among these genes; identify the induced subnetwork around the gene_list.}

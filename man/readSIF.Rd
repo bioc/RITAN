@@ -4,8 +4,17 @@
 \alias{readSIF}
 \title{readSIF}
 \usage{
-readSIF(file = NA, header = FALSE, sep = "\\t", as.is = TRUE, p1 = 1,
-  p2 = 2, et = 3, score = NA, ...)
+readSIF(
+  file = NA,
+  header = FALSE,
+  sep = "\\t",
+  as.is = TRUE,
+  p1 = 1,
+  p2 = 2,
+  et = 3,
+  score = NA,
+  ...
+)
 }
 \arguments{
 \item{file}{location of file}
@@ -45,7 +54,7 @@ s <- matrix(c('gene1','gene2','PPI',
               'gene4','gene5','PPI'), ncol=3, byrow=TRUE)
 \dontrun{
 # Read a SIF file
-write.table( s, "myFile.sif", sep='\\t', col.names=FALSE, row.names=FALSE )
+write.table( s, "myFile.sif", sep='\t', col.names=FALSE, row.names=FALSE )
 sif <- readSIF("myFile.sif")
 }
 }

@@ -4,9 +4,15 @@
 \alias{term_enrichment_by_subset}
 \title{term_enrichment_by_subset}
 \usage{
-term_enrichment_by_subset(groups = NA, resources = resources.default,
-  q_value_threshold = 0.01, verbose = TRUE, display_type = "q",
-  phred = TRUE, ...)
+term_enrichment_by_subset(
+  groups = NA,
+  resources = resources.default,
+  q_value_threshold = 0.01,
+  verbose = TRUE,
+  display_type = "q",
+  phred = TRUE,
+  ...
+)
 }
 \arguments{
 \item{groups}{A list() of genes for enrichment. Each entry in the list() is an input set of genes. Enrichment is performed for each of these entries.}

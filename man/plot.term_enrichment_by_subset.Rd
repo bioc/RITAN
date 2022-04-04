@@ -4,13 +4,26 @@
 \alias{plot.term_enrichment_by_subset}
 \title{plot.term_enrichment_by_subset}
 \usage{
-\method{plot}{term_enrichment_by_subset}(x, show_values = TRUE,
-  annotation_matrix = NA, low = "white", high = "#2166AC",
-  return_ggplot_object = FALSE, label_size_x = 16, label_angle_x = -30,
-  label_size_y = 9, wrap_y_labels = 20, grid_line_color = "white",
-  mid = 0, cap = NA, annotation_palates = c("Reds", "Greens", "Purples",
-  "Greys", "BuPu", "RdPu", "BrBG", "PiYG", "Spectral"),
-  annotation_legend_x = -0.3, ...)
+\method{plot}{term_enrichment_by_subset}(
+  x,
+  show_values = TRUE,
+  annotation_matrix = NA,
+  low = "white",
+  high = "#2166AC",
+  return_ggplot_object = FALSE,
+  label_size_x = 16,
+  label_angle_x = -30,
+  label_size_y = 9,
+  wrap_y_labels = 20,
+  grid_line_color = "white",
+  mid = 0,
+  cap = NA,
+  annotation_palates = c("Reds", "Greens", "Purples", "Greys", "BuPu", "RdPu", "BrBG",
+    "PiYG", "Spectral"),
+  annotation_legend_x = -0.3,
+  trim_resource_names = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{data frame returned by term_enrichment_by_subset}
@@ -42,6 +55,8 @@
 \item{annotation_palates}{Color palates (RColorBrewer) used for each row of the annotation matrix}
 
 \item{annotation_legend_x}{offset for placing the legend}
+
+\item{trim_resource_names}{[TRUE] remove any text in rownames preceeding a period characte. This convension is usually used in RITAN to prepend the resource name to the term name, which may not be needed in plotting.}
 
 \item{...}{further areguments are not used at this time. If the user wants to modify the plot, use return_ggplot_object = TRUE.}
 }

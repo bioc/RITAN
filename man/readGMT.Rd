@@ -26,7 +26,9 @@ writeGMT( set, 'my_file.gmt' )
 # Reading GMT files
 geneset <- readGMT( 'my_file.gmt' )
 
-# GMT files are available from multiple sources including http://software.broadinstitute.org/gsea/msigdb/
+# Additional GMT files are available from multiple sources.
+#   We recommend:
+#   http://software.broadinstitute.org/gsea/msigdb/
 }
 
 }

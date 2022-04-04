@@ -4,8 +4,7 @@
 \alias{plot.term_enrichment}
 \title{plot.term_enrichment}
 \usage{
-\method{plot}{term_enrichment}(x = NA, min_q = 0.05, max_terms = 25,
-  extend_mar = c(0, 10, 0, 0), ...)
+\method{plot}{term_enrichment}(x = NA, min_q = 0.05, max_terms = 25, extend_mar = c(0, 10, 0, 0), ...)
 }
 \arguments{
 \item{x}{data frame returned by term_enrichment}
