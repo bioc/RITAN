@@ -360,12 +360,12 @@ load_all_protein_coding_symbols <- function(
 #' 
 #' \dontrun{
 #' ## We suggest using term_enrichment() instead. E.g.:
-#' e <- enrichment_symbols(myGeneSet, 'GO')
+#' e <- term_enrichment(myGeneSet, 'GO')
 #' }
 #' 
 #' ## But, you may use enrichment_symbols() directly for an individual term:
 #' load_geneset_symbols('GO')
-#' e <- enrichment_symbols(myGeneSet, 'DNA_repair')
+#' e <- enrichment_symbols(myGeneSet, 'DNA_repair', all_symbols = cached_coding_genes)
 #' print(e)
 #' 
 #' \dontrun{
@@ -377,7 +377,7 @@ load_all_protein_coding_symbols <- function(
 #' t <- active_genesets[1:5]
 #' 
 #' ## Test enrichment of that set of terms
-#' enrichment_symbols(geneset = vac1.day0vs31.de.genes, term = t) 
+#' enrichment_symbols(geneset = vac1.day0vs31.de.genes, term = t)
 #' }
 
 enrichment_symbols <- function( geneset, term = NULL, all_symbols = NA, ... ){
