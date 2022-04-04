@@ -10,7 +10,7 @@ bibentry(bibtype = "Article",
                     person("Gregory", "Poland")
                     ),
          year = "2019",
-         publisher = "PeerJ",
+         journal = "PeerJ",
          doi = "10.7717/peerj.6994",
          note = note,
          url = "https://bioconductor.org/packages/devel/bioc/html/RITAN.html")

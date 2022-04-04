@@ -1,17 +1,18 @@
 Package: RITAN
 Type: Package
 Title: Rapid Integration of Term Annotation and Network resources
-Version: 1.19.2
-Author: Michael Zimmermann
-Maintainer: Michael Zimmermann <mtzimmermann@mcw.edu>
+Version: 1.19.3
+Authors@R: c(person("Michael", "Zimmermann", role = c("aut", "cre"),
+                    email = "mtzimmermann@mcw.edu"))
 Description: Tools for comprehensive gene set enrichment and extraction of
     multi-resource high confidence subnetworks. RITAN facilitates bioinformatic
     tasks for enabling network biology research.
 LazyData: TRUE
 Depends:
-    R (>= 3.4),
+    R (>= 4.0),
 Imports:
     graphics,
+    methods,
     stats,
     utils,
     grid,
@@ -32,16 +33,22 @@ Imports:
     igraph,
     BgeeDB,
     knitr,
-    RITANdata
+    RITANdata,
+    GenomicFeatures,
+    ensembldb,
+    AnnotationFilter,
+    EnsDb.Hsapiens.v86
 VignetteBuilder: knitr
 Collate:
     'lib_enrichment.R'
     'lib_network.R'
     'interconnectivity_functions.R'
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.1
 Suggests:
-    rmarkdown
+    rmarkdown,
+    BgeeDB
 License: file LICENSE
 biocViews: QualityControl, Network, NetworkEnrichment,
-    NetworkInference, GeneSetEnrichment, FunctionalGenomics
+    NetworkInference, GeneSetEnrichment, FunctionalGenomics,
+    GraphAndNetwork
 NeedsCompilation: no
