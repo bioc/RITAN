@@ -130,7 +130,7 @@ writeGMT <- function( s, file = NA, link=rep('', length(s)) ){
   }
   
   if (is.na(file)){ stop('no file name given') }
-  if (is(s, 'list')){ stop('input should be a list of genesets') }
+  if (!is(s, 'list')){ stop('input should be a list of genesets') }
   cat('', file=file, append=FALSE)
   for (x in 1:length(s) ){
     cat( sprintf('%s\t%s\t%s\n', names(s)[x], link[x],
