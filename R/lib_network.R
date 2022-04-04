@@ -90,7 +90,7 @@ readSIF <- function( file = NA, header = FALSE, sep="\t", as.is=TRUE,
     
   }
   
-  if ( (!( is(et,'character') | is(et,'numeric')) ) || any(is.na(et)) || (length(et) != 1) ){
+  if ( (!( methods::is(et,'character') | methods::is(et,'numeric')) ) || any(is.na(et)) || (length(et) != 1) ){
     stop('The edge type "et" must be a column number or string label. If a string label, all edges from the indicated file will have edge type "et."')
   }
   
@@ -349,7 +349,7 @@ network_overlap <- function( gene_list = NA, resources = c('PID','TFe','dPPI','C
 
   return_full_network <- FALSE
   if ( all(is.na(gene_list)) ||
-       (!is(gene_list, 'character')) ||
+       (!methods::is(gene_list, 'character')) ||
        (length(gene_list) == 0) ){
     
     if (verbose){
@@ -439,9 +439,9 @@ network_overlap <- function( gene_list = NA, resources = c('PID','TFe','dPPI','C
       
       map.input.to.STRING <- function( genes = NULL, s. = s, removeUnmappedRows = TRUE ){
 
-        if (is(genes, 'character')){
+        if (methods::is(genes, 'character')){
           genes <- data.frame(gene = genes)
-        } else if ( (is(genes, 'data.frame')) && ('gene' %in% names(genes)) ){
+        } else if ( (methods::is(genes, 'data.frame')) && ('gene' %in% names(genes)) ){
 
         } else {
           stop('Input should be a character vector of gene names/ids or a data frame with a column named "gene"')

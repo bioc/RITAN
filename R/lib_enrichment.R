@@ -130,7 +130,7 @@ writeGMT <- function( s, file = NA, link=rep('', length(s)) ){
   }
   
   if (is.na(file)){ stop('no file name given') }
-  if (!is(s, 'list')){ stop('input should be a list of genesets') }
+  if (!methods::is(s, 'list')){ stop('input should be a list of genesets') }
   cat('', file=file, append=FALSE)
   for (x in 1:length(s) ){
     cat( sprintf('%s\t%s\t%s\n', names(s)[x], link[x],
@@ -750,7 +750,7 @@ term_enrichment_by_subset <- function( groups = NA, resources = resources.defaul
   ## Make a matrix for the term enrichment of each "group" (a list where each entry is a vector of genes)
   ## "Extra" arguments are passed to enrichment_symbols()
 
-  if ( all(is.na(groups)) || (!is(groups, 'list')) ){
+  if ( all(is.na(groups)) || (!methods::is(groups, 'list')) ){
       stop( '"groups" should be a list where each entry is a vector of gene symbols.' )
   }
   if ((display_type == 'n') && ( phred == TRUE ) ){
@@ -923,7 +923,7 @@ plot.term_enrichment_by_subset <- function( x, show_values = TRUE,
   }
 
   ## Optionally, cap the values for plotting
-  if ( (!all(is.na(cap))) & is(cap, 'numeric') ){
+  if ( (!all(is.na(cap))) & methods::is(cap, 'numeric') ){
     if (length(cap) > 1){ stop('"cap" should be a single number') }
     x[, 3:dim(x)[2] ] <- apply( x[, 3:dim(x)[2] ], c(1,2), function(y){
       if (y > cap){ return(cap)

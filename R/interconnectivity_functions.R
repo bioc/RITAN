@@ -36,10 +36,10 @@ icon_test <- function( nodes1 = NULL, nodes2 = NULL, s=100, verbose=TRUE, ... ){
   o <- NULL
   if ( all(is.null(nodes2)) || all(is.na(nodes2)) ){
 
-    if (is(nodes1, 'character')){
+    if (methods::is(nodes1, 'character')){
       test_mode <- 'single_within'
       o <- icon_single_within( nodes1, s )
-    } else if (is(nodes1, 'list')){
+    } else if (methods::is(nodes1, 'list')){
       test_mode <- 'list_between'
       o <- icon_list_between( nodes1, s, verbose=verbose, ... )
     }
