@@ -1,9 +1,9 @@
 ### TO IMPLEMENT
-## - distributional test between random netowrks and a bootstrapped estimate from your data better than current interconnectivity test? (would just be a more confident estimate of observation)
+## - distributional test between random networks and a bootstrapped estimate from your data better than current interconnectivity test? (would just be a more confident estimate of observation)
 
-if(getRversion() >= "2.15.1"){
-  utils::globalVariables( names=c('active_genesets', 'all_symbols', 'geneset_list'), package='RITAN')
-}
+# if(getRversion() >= "2.15.1"){
+#   utils::globalVariables( names=c('active_genesets', 'all_symbols', 'geneset_list'), package='RITAN')
+# }
 resources.default = c("GO", "ReactomePathways", "KEGG_filtered_canonical_pathways", "MSigDB_Hallmarks")
 
 ### --------------------------------------------------------------- -
@@ -130,7 +130,7 @@ writeGMT <- function( s, file = NA, link=rep('', length(s)) ){
   }
   
   if (is.na(file)){ stop('no file name given') }
-  if (is(s, 'list')){ stop('input should be a list of genesets') }
+  if (!is(s, 'list')){ stop('input should be a list of genesets') }
   cat('', file=file, append=FALSE)
   for (x in 1:length(s) ){
     cat( sprintf('%s\t%s\t%s\n', names(s)[x], link[x],
@@ -360,12 +360,12 @@ load_all_protein_coding_symbols <- function(
 #' 
 #' \dontrun{
 #' ## We suggest using term_enrichment() instead. E.g.:
-#' e <- enrichment_symbols(myGeneSet, 'GO')
+#' e <- term_enrichment(myGeneSet, 'GO')
 #' }
 #' 
 #' ## But, you may use enrichment_symbols() directly for an individual term:
 #' load_geneset_symbols('GO')
-#' e <- enrichment_symbols(myGeneSet, 'DNA_repair')
+#' e <- enrichment_symbols(myGeneSet, 'DNA_repair', all_symbols = cached_coding_genes)
 #' print(e)
 #' 
 #' \dontrun{
@@ -377,7 +377,7 @@ load_all_protein_coding_symbols <- function(
 #' t <- active_genesets[1:5]
 #' 
 #' ## Test enrichment of that set of terms
-#' enrichment_symbols(geneset = vac1.day0vs31.de.genes, term = t) 
+#' enrichment_symbols(geneset = vac1.day0vs31.de.genes, term = t)
 #' }
 
 enrichment_symbols <- function( geneset, term = NULL, all_symbols = NA, ... ){
@@ -875,6 +875,7 @@ plot.term_enrichment <- function( x = NA, min_q = 0.05, max_terms = 25, extend_m
 #' @param wrap_y_labels Number of characters to wrap row labels
 #' @param cap Clip numeric values to this maximum threshold
 #' @param return_ggplot_object logical flag (default FALSE) that if TRUE, the ggplot object for the plot is returned
+#' @param trim_resource_names [TRUE] remove any text in rownames preceeding a period characte. This convension is usually used in RITAN to prepend the resource name to the term name, which may not be needed in plotting.
 #' @param ... further areguments are not used at this time. If the user wants to modify the plot, use return_ggplot_object = TRUE.
 #'
 #' @return silent return, unless return_ggplot_object==TRUE. Then, the ggplot object for the plot is returned.
@@ -905,7 +906,8 @@ plot.term_enrichment_by_subset <- function( x, show_values = TRUE,
                                             label_size_y = 9, wrap_y_labels = 20,
                                             grid_line_color = 'white', mid = 0, cap = NA,
                                             annotation_palates = c('Reds','Greens','Purples','Greys','BuPu','RdPu','BrBG','PiYG','Spectral'),
-                                            annotation_legend_x = -0.3, ... ){
+                                            annotation_legend_x = -0.3, 
+                                            trim_resource_names = TRUE, ... ){
 
   ## Check inputs
   if ( all(is.na(x)|is.null(x)) || is.null(dim(x)) || (dim(x)[1] < 1) ){
@@ -935,10 +937,12 @@ plot.term_enrichment_by_subset <- function( x, show_values = TRUE,
   colnames(mat) <- colnames(x)[ 3:dim(x)[2] ]
 
   ## trim off the "resource" from term names for plotting
-  rownames(mat) <- as.character(sapply(
-    getElement( x, 'name' ), function(x){
-      sub( '.+[.]', '', x )
-    }))
+  if (trim_resource_names){
+    rownames(mat) <- as.character(sapply(
+      getElement( x, 'name' ), function(x){
+        sub( '.+[.]', '', x )
+      }))
+  }
 
   ## basic 1-level name wrapping for plotting
   if ( !all(is.na(wrap_y_labels)) && is.numeric(wrap_y_labels) ){
