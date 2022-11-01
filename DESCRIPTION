@@ -1,7 +1,7 @@
 Package: RITAN
 Type: Package
 Title: Rapid Integration of Term Annotation and Network resources
-Version: 1.22.0
+Version: 1.23.0
 Authors@R: c(person("Michael", "Zimmermann", role = c("aut", "cre"),
                     email = "mtzimmermann@mcw.edu"))
 Description: Tools for comprehensive gene set enrichment and extraction of
