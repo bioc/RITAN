@@ -24,7 +24,6 @@ Imports:
     RColorBrewer,
     STRINGdb,
     MCL,
-    linkcomm,
     dynamicTreeCut,
     gsubfn,
     hash,
@@ -43,7 +42,7 @@ Collate:
     'lib_enrichment.R'
     'lib_network.R'
     'interconnectivity_functions.R'
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.2
 Suggests:
     rmarkdown,
     BgeeDB

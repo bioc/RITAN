@@ -310,12 +310,12 @@ check_any_net_input <- function(set, resources = names(network_list) ){
 #' @param dedup If TRUE (Default = TRUE), remove edges reported by multiple resources. The edge type will be a semi-colon delimited list of the resources that had reported the interaction.
 #' @param directed_net Logical indicating if the network resources should be interpreted as directed. 
 #' @param include_neighbors Logical to include 1st neighbors of "gene_list" (genes not in gene_list, but directly connected to them) in the induced subnetwork.
-#' @param STRING_cache_directory A direcotry where STRING data files are cached to speed up subsequent queries; no need to re-download. If NA (the default), caches STRING data in your Rpackages directory. If "", uses a temporary directory that is cleared when the R-session closes.
-#' @param STRING_species Sepcies taxon ID (number) to use in searching STRING data. (Default = 9606)
+#' @param STRING_cache_directory A directory where STRING data files are cached to speed up subsequent queries; no need to re-download. If NA (the default), caches STRING data in your Rpackages directory. If "", uses a temporary directory that is cleared when the R-session closes.
+#' @param STRING_species Species taxon ID (number) to use in searching STRING data. (Default = 9606)
 #' @param STRING_version Version of the STRING database (Default = "10")
 #'
 #' @return Data table describing the induced subnetwork for "gene_list" across the requested resources.
-#' @import STRINGdb igraph MCL linkcomm dynamicTreeCut sqldf gsubfn hash
+#' @import STRINGdb igraph MCL dynamicTreeCut sqldf gsubfn
 #' @export
 #'
 #' @examples
@@ -327,13 +327,16 @@ check_any_net_input <- function(set, resources = names(network_list) ){
 #' 
 #' \dontrun{
 #' ## Get the PPI network induced by genes within myGeneSet
-#' ## Use 4 seperate resources, but trim STRING to only include more confident interactions
+#' ## Use 4 separate resources, but trim STRING to only include more confident interactions
 #' sif <- network_overlap( myGeneSet, c('dPPI','PID','CCSB','STRING'), minStringScore = 500 )
 #' }
 network_overlap <- function( gene_list = NA, resources = c('PID','TFe','dPPI','CCSB','STRING'),
                     
-                    minStringScore = 700, # 7.8% have a score >= 0.7
-                    minHumanNetScore = 0.4, # 0.5 ==> 84.8%, 1.0 ==> 44.7%, 1.5 ==> 25.8%, 2.0 ==> 12.9%, 2.5 ==> 6.6%, 3.0 ==> 3.0%
+                    # 7.8% have a score >= 700
+                    minStringScore = 700,
+                    
+                    # 0.5 ==> 84.8%, 1.0 ==> 44.7%, 1.5 ==> 25.8%, 2.0 ==> 12.9%, 2.5 ==> 6.6%, 3.0 ==> 3.0%
+                    minHumanNetScore = 0.4, 
                     minScore       = 0,
                     
                     verbose        = TRUE,
@@ -468,7 +471,7 @@ network_overlap <- function( gene_list = NA, resources = c('PID','TFe','dPPI','C
         p <- .libPaths()[ which.max(j) ]
         STRING_cache_directory <- paste( p, 'STRINGdb.cache', sep='/' )
         
-        # check if both directorise are writable
+        # check if both directories are writable
         if ( ( file.access(STRING_cache_directory,2) == -1 ) ||
              ( file.access(p,2) == 1 ) ){
           stop('You do not have write access to STRING_cache_directory. You have requested to use STRING. Please change STRING_cache_directory to a directory that you have write permission for.')

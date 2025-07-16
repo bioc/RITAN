@@ -38,9 +38,9 @@ network_overlap(
 
 \item{include_neighbors}{Logical to include 1st neighbors of "gene_list" (genes not in gene_list, but directly connected to them) in the induced subnetwork.}
 
-\item{STRING_cache_directory}{A direcotry where STRING data files are cached to speed up subsequent queries; no need to re-download. If NA (the default), caches STRING data in your Rpackages directory. If "", uses a temporary directory that is cleared when the R-session closes.}
+\item{STRING_cache_directory}{A directory where STRING data files are cached to speed up subsequent queries; no need to re-download. If NA (the default), caches STRING data in your Rpackages directory. If "", uses a temporary directory that is cleared when the R-session closes.}
 
-\item{STRING_species}{Sepcies taxon ID (number) to use in searching STRING data. (Default = 9606)}
+\item{STRING_species}{Species taxon ID (number) to use in searching STRING data. (Default = 9606)}
 
 \item{STRING_version}{Version of the STRING database (Default = "10")}
 }
@@ -59,7 +59,7 @@ print(sif)
 
 \dontrun{
 ## Get the PPI network induced by genes within myGeneSet
-## Use 4 seperate resources, but trim STRING to only include more confident interactions
+## Use 4 separate resources, but trim STRING to only include more confident interactions
 sif <- network_overlap( myGeneSet, c('dPPI','PID','CCSB','STRING'), minStringScore = 500 )
 }
 }
